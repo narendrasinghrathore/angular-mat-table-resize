@@ -1,0 +1,20 @@
+<h1>
+  Angular 7 material table resize column demo
+</h1>
+
+<div class="example-container mat-elevation-z8">
+ 	<mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+		<div>
+			<mat-header-row *matHeaderRowDef="displayedColumns;" class="mat-elevation-z1"></mat-header-row>
+		</div>
+		<ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+			<mat-header-cell *matHeaderCellDef mat-sort-header mwlResizable [enableGhostResize]="true" (resizeEnd)="onResizeEnd($event, column)"
+			 [resizeEdges]="{bottom: false, right: true, top: false, left: true}">
+				{{ column | titlecase }}
+			</mat-header-cell>
+			<mat-cell *matCellDef="let item">{{ item[column] }}</mat-cell>
+		</ng-container>
+		<mat-row matRipple id="row-{{index}}" *matRowDef="let row; columns: displayedColumns; let index = index;" (click)="selectRow(index)">
+		</mat-row>
+	</mat-table>
+</div>
